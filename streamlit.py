@@ -13,7 +13,7 @@ if len(query) > 0:
     }
 
     result = (
-        client.query.get("Comment", ["content", "date"])
+        client.query.get("Comment", ["content", "date", "permalink"])
         .with_near_text(content)
         .with_limit(10)
         .do()
@@ -25,6 +25,6 @@ if len(query) > 0:
         st.write("Did not find any comments.")
     else:
         for comment in comments:
-            st.markdown(comment["date"])
+            st.markdown("[" + comment["date"] + "]("+comment["permalink"]+")")
             st.markdown(comment["content"])
             st.markdown("---")
