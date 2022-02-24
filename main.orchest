@@ -1,0 +1,116 @@
+{
+    "name": "Main",
+    "parameters": {},
+    "services": {
+        "streamlit": {
+            "binds": {
+                "/data": "/data",
+                "/project-dir": "/usr/src/app/src"
+            },
+            "command": "-c 'umask 002 && touch /usr/src/app/src/streamlit.py && streamlit run src/streamlit.py'",
+            "entrypoint": "bash",
+            "env_variables": {
+                "STREAMLIT_SERVER_BASE_URL_PATH": "$BASE_PATH_PREFIX_8501"
+            },
+            "image": "environment@66d457df-2c82-432a-895c-2e6a16caf09e",
+            "name": "streamlit",
+            "ports": [
+                8501
+            ],
+            "preserve_base_path": true,
+            "scope": [
+                "interactive",
+                "noninteractive"
+            ]
+        },
+        "weaviate": {
+            "env_variables": {
+                "AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED": "true",
+                "CONTEXTIONARY_URL": "service-weaviate-contextionary-ecf6d3ab-033a4558:9999",
+                "DEFAULT_VECTORIZER_MODULE": "text2vec-contextionary",
+                "ENABLE_MODULES": "text2vec-contextionary",
+                "PERSISTENCE_DATA_PATH": "./data",
+                "QUERY_DEFAULTS_LIMIT": "25"
+            },
+            "image": "semitechnologies/weaviate:1.9.0",
+            "name": "weaviate",
+            "ports": [
+                8080
+            ],
+            "preserve_base_path": false,
+            "scope": [
+                "interactive",
+                "noninteractive"
+            ]
+        },
+        "weaviate-contextionary": {
+            "env_variables": {
+                "ENABLE_COMPOUND_SPLITTING": "false",
+                "EXTENSIONS_STORAGE_MODE": "weaviate",
+                "EXTENSIONS_STORAGE_ORIGIN": "http://service-weaviate-ecf6d3ab-033a4558:8080",
+                "NEIGHBOR_OCCURRENCE_IGNORE_PERCENTILE": "5",
+                "OCCURRENCE_WEIGHT_LINEAR_FACTOR": "0.75"
+            },
+            "image": "semitechnologies/contextionary:nl0.16.0-v1.0.2",
+            "name": "weaviate-contextionary",
+            "ports": [
+                9999
+            ],
+            "scope": [
+                "interactive",
+                "noninteractive"
+            ]
+        }
+    },
+    "settings": {
+        "auto_eviction": false,
+        "data_passing_memory_size": "1GB"
+    },
+    "steps": {
+        "b2dbe477-1892-4614-9018-ac924e57327e": {
+            "environment": "50d65f8e-003b-4528-a838-7178c22ba577",
+            "file_path": "insert_into_weaviate.ipynb",
+            "incoming_connections": [
+                "b42c4915-03f9-4678-86ff-eb64df44db90"
+            ],
+            "kernel": {
+                "display_name": "Python 3",
+                "name": "python"
+            },
+            "meta_data": {
+                "hidden": false,
+                "position": [
+                    486.5,
+                    266
+                ]
+            },
+            "parameters": {},
+            "title": "Insert into weaviate",
+            "uuid": "b2dbe477-1892-4614-9018-ac924e57327e"
+        },
+        "b42c4915-03f9-4678-86ff-eb64df44db90": {
+            "environment": "50d65f8e-003b-4528-a838-7178c22ba577",
+            "file_path": "fetch_tweakers.ipynb",
+            "incoming_connections": [],
+            "kernel": {
+                "display_name": "Python 3",
+                "name": "python"
+            },
+            "meta_data": {
+                "hidden": false,
+                "position": [
+                    223,
+                    266
+                ]
+            },
+            "parameters": {
+                "pages": 5,
+                "poster_id": "417973"
+            },
+            "title": "Fetch Tweakers",
+            "uuid": "b42c4915-03f9-4678-86ff-eb64df44db90"
+        }
+    },
+    "uuid": "033a4558-ac7f-4b9e-a657-4462ab3167c5",
+    "version": "1.0.0"
+}
