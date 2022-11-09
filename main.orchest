@@ -6,12 +6,11 @@
             "env_variables": {
                 "ENABLE_COMPOUND_SPLITTING": "false",
                 "EXTENSIONS_STORAGE_MODE": "weaviate",
-                "EXTENSIONS_STORAGE_ORIGIN": "http://weaviate-c8197f3f-1627-4e50033a4558-ac7f-4b9e:8080",
                 "NEIGHBOR_OCCURRENCE_IGNORE_PERCENTILE": "5",
                 "OCCURRENCE_WEIGHT_LINEAR_FACTOR": "0.75"
             },
             "env_variables_inherit": [],
-            "exposed": true,
+            "exposed": false,
             "image": "semitechnologies/contextionary:nl0.16.0-v1.0.2",
             "name": "service-weaviate",
             "order": 2,
@@ -59,7 +58,7 @@
                 "QUERY_DEFAULTS_LIMIT": "25"
             },
             "env_variables_inherit": [],
-            "exposed": true,
+            "exposed": false,
             "image": "semitechnologies/weaviate:1.9.0",
             "name": "weaviate",
             "order": 1,
