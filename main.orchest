@@ -3,21 +3,25 @@
     "parameters": {},
     "services": {
         "streamlit": {
+            "args": "-c 'umask 002 && touch /usr/src/app/src/streamlit.py && cd /usr/src/app/src && streamlit run streamlit.py'",
             "binds": {
                 "/data": "/data",
                 "/project-dir": "/usr/src/app/src"
             },
-            "command": "-c 'umask 002 && touch /usr/src/app/src/streamlit.py && streamlit run src/streamlit.py'",
-            "entrypoint": "bash",
+            "command": "bash",
             "env_variables": {
                 "STREAMLIT_SERVER_BASE_URL_PATH": "$BASE_PATH_PREFIX_8501"
             },
+            "env_variables_inherit": [],
+            "exposed": true,
             "image": "environment@66d457df-2c82-432a-895c-2e6a16caf09e",
             "name": "streamlit",
+            "order": 0,
             "ports": [
                 8501
             ],
             "preserve_base_path": true,
+            "requires_authentication": true,
             "scope": [
                 "interactive",
                 "noninteractive"
@@ -32,12 +36,16 @@
                 "PERSISTENCE_DATA_PATH": "./data",
                 "QUERY_DEFAULTS_LIMIT": "25"
             },
+            "env_variables_inherit": [],
+            "exposed": false,
             "image": "semitechnologies/weaviate:1.9.0",
             "name": "weaviate",
+            "order": 1,
             "ports": [
                 8080
             ],
             "preserve_base_path": false,
+            "requires_authentication": true,
             "scope": [
                 "interactive",
                 "noninteractive"
@@ -51,11 +59,15 @@
                 "NEIGHBOR_OCCURRENCE_IGNORE_PERCENTILE": "5",
                 "OCCURRENCE_WEIGHT_LINEAR_FACTOR": "0.75"
             },
+            "env_variables_inherit": [],
+            "exposed": false,
             "image": "semitechnologies/contextionary:nl0.16.0-v1.0.2",
             "name": "weaviate-contextionary",
+            "order": 2,
             "ports": [
                 9999
             ],
+            "requires_authentication": true,
             "scope": [
                 "interactive",
                 "noninteractive"
@@ -84,6 +96,7 @@
                     266
                 ]
             },
+            "outgoing_connections": [],
             "parameters": {},
             "title": "Insert into weaviate",
             "uuid": "b2dbe477-1892-4614-9018-ac924e57327e"
@@ -103,6 +116,9 @@
                     266
                 ]
             },
+            "outgoing_connections": [
+                "b2dbe477-1892-4614-9018-ac924e57327e"
+            ],
             "parameters": {
                 "pages": 5,
                 "poster_id": "417973"
@@ -112,5 +128,5 @@
         }
     },
     "uuid": "033a4558-ac7f-4b9e-a657-4462ab3167c5",
-    "version": "1.0.0"
+    "version": "1.2.2"
 }
